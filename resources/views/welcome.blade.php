@@ -68,6 +68,23 @@
             .menu-l{
                 float: right;
             }
+            .menu-l p{
+                color: #67ff67;
+                font-size: 17px;
+                margin: -30px 30px;
+                display: block;
+            }
+
+            .menu-l button{
+                margin: 10px 30px;
+                display: block;
+                padding: 5px;
+                border: 1px solid #000;
+                border-radius: 3px;
+                color: #67ff67;
+                background-color: #1d232c;
+            }
+
             .login input{
                 width: 500px;
             }
@@ -88,6 +105,18 @@
                 border-radius: 3px;
                 color: #67ff67;
                 background-color: #3b4b66;
+            }
+
+            .users{
+                margin: 10px;
+                background-color: #9bacc4;
+                border: 1px solid #000;
+                padding: 5px;
+                font-size: 16px;
+                border-radius: 5px;
+            }
+            .users label{
+                font-size: 20px;
             }
 
             .posty{
@@ -311,16 +340,32 @@
                     <div class="menu">
                         <div class="menu-a">
                             <a href="{{ url('home')}}"><label> Strona główna</label></a>
-                            <a href=""><label>o blogu</label></a>
+                            <a href="{{ url('users')}}"><label>Użytkownicy</label></a>
                             <a href="{{ url('/')}}"><label>Forum</label></a>
                             <a href="{{ url('contact')}}"><label>kontakt</label></a>
                             <a href="{{ url('create')}}"><label>Dodawanie wpisów</label></a>
                             
                         </div>
+                        @if (auth()->user())
                         <div class="menu-l">
-                        <a href="{{ url('login')}}"><label>Zaloguj</label></a>
-                            <a href="{{url('register')}}"><label>Zarejestruj</label></a>
+                            <p>jesteś zalogowany</p><br>
+                            
+                            <div class="menu-l">
+                                <form action="{{url('logout')}}" method="get">
+                                    @csrf
+                                    <button type="submit">Wyloguj</button>
+                                </form>
+                            </div>
                         </div>
+                            
+                        @else
+                         <div class="menu-l">
+                            <a href="{{ url('login')}}"><label>Zaloguj</label></a>
+                            <a href="{{url('register')}}"><label>Zarejestruj</label></a>
+                        </div> 
+
+                        @endif
+                        
                         <div>
 
                         </div>

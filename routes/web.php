@@ -51,16 +51,12 @@ Route::get('create', function () {
 
     $message = Message::create([
         'message'=>$message,
-        'user_id'=>Auth::user()->id
+        'user_login'=>Auth::user()->login
     ]);
 
     return redirect()->to('contact');
     
  });
-
-Route::get('admin', function (){
-    return view('admin');
-});
 
 Route::post('store', function (Request $request) {
     $note = $request->get('note');
@@ -244,5 +240,18 @@ Route::post('register', function (Request $request) {
     return view('home');
 });
 
+Route::get('users', function (){
+    $users = User::orderBy('created_at', 'desc')->get();
+    return view('users',['users'=>$users]);
+})->middleware('auth');
 
+Route::post('users', function(Request $request){
+    $user = $request->get('user');
 
+    $user = User::create([
+        'user'=>$user,
+    ]);
+
+    return redirect()->to('users');
+    
+ });
